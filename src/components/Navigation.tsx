@@ -28,10 +28,10 @@ const Navigation = () => {
               <Heart className="w-6 h-6 text-primary-foreground" fill="currentColor" />
             </div>
             <div className="hidden md:block">
-              <h2 className="text-xl font-heading font-bold text-foreground leading-tight">
-                Fundación
+              <h2 className="text-lg font-heading font-bold text-foreground leading-tight">
+                Cromosomas de
               </h2>
-              <p className="text-xs text-muted-foreground font-body">Niños Especiales</p>
+              <p className="text-xs text-muted-foreground font-body">Pasión, Amor y Ritmo</p>
             </div>
           </Link>
 

@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { Heart, Users, Calendar, BookOpen, ArrowRight, Star } from "lucide-react";
+import { Heart, Users, Calendar, BookOpen, ArrowRight, Star, Trophy, Award } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import heroImage from "@/assets/hero-dance.jpg";
@@ -13,7 +13,7 @@ const Index = () => {
     {
       icon: Heart,
       title: "Inclusión Total",
-      description: "Creamos un espacio seguro y acogedor donde cada niño es valorado y celebrado.",
+      description: "Creamos un espacio seguro y acogedor donde cada persona es valorada y celebrada.",
       color: "text-secondary",
     },
     {
@@ -88,7 +88,7 @@ const Index = () => {
                 Bailamos Juntos, Crecemos Juntos
               </h1>
               <p className="text-xl md:text-2xl text-primary-foreground/95 mb-8 leading-relaxed font-body">
-                Una fundación dedicada a niños y jóvenes con necesidades especiales, donde el baile, la alegría y la comunidad se unen para crear momentos inolvidables.
+                Una escuela de baile inclusiva dedicada a jóvenes super especiales con discapacidad, donde el baile, la alegría y la comunidad se unen para crear momentos inolvidables.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button asChild variant="warm" size="lg">
@@ -137,10 +137,10 @@ const Index = () => {
               <div className="animate-slide-up">
                 <h2 className="mb-6">Nuestra Misión</h2>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                  Promovemos la inclusión, la alegría y el desarrollo de niños y jóvenes con necesidades especiales a través del poder transformador del baile y las actividades comunitarias.
+                  Promovemos la inclusión, la alegría y el desarrollo de jóvenes super especiales con discapacidad a través del poder transformador del baile y las actividades comunitarias.
                 </p>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-                  Creemos que cada niño merece un lugar donde pueda expresarse, hacer amigos y sentirse valorado. Nuestro equipo de instructores especializados crea experiencias únicas adaptadas a las necesidades de cada participante.
+                  Creemos que cada persona merece un lugar donde pueda expresarse, hacer amigos y sentirse valorada. Nuestro equipo de instructores especializados crea experiencias únicas adaptadas a las necesidades de cada participante.
                 </p>
                 <Button asChild variant="default" size="lg">
                   <Link to="/quienes-somos">
@@ -156,6 +156,54 @@ const Index = () => {
                 />
                 <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-warm rounded-full blur-3xl opacity-50" />
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Recognition Section */}
+        <section className="section-padding bg-gradient-soft">
+          <div className="container-custom">
+            <div className="text-center mb-16 animate-slide-up">
+              <h2 className="mb-4">Reconocimientos y Logros</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Nuestros jóvenes super especiales han ganado premios en campeonatos nacionales e internacionales, representando con orgullo a nuestra comunidad.
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-8">
+              {[
+                {
+                  icon: Trophy,
+                  title: "Campeonato Nacional 2024",
+                  description: "Primer lugar en categoría inclusiva",
+                  achievement: "Medalla de Oro",
+                },
+                {
+                  icon: Award,
+                  title: "Festival Internacional",
+                  description: "Participación en festival de danza en Miami",
+                  achievement: "Reconocimiento Especial",
+                },
+                {
+                  icon: Star,
+                  title: "Logros Comunitarios",
+                  description: "Más de 50 presentaciones exitosas este año",
+                  achievement: "Impacto Social",
+                },
+              ].map((recognition, index) => (
+                <Card key={index} className="card-hover border-2 border-accent/20">
+                  <CardContent className="pt-8 pb-8 text-center">
+                    <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-warm flex items-center justify-center shadow-colored">
+                      <recognition.icon className="w-10 h-10 text-primary-foreground" />
+                    </div>
+                    <div className="inline-block bg-accent/10 text-accent text-xs font-bold px-3 py-1 rounded-full mb-4">
+                      {recognition.achievement}
+                    </div>
+                    <h3 className="text-lg font-heading font-bold mb-3">{recognition.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed">{recognition.description}</p>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </div>
         </section>
@@ -279,7 +327,7 @@ const Index = () => {
             <div className="grid md:grid-cols-3 gap-8">
               {[
                 {
-                  title: "Beneficios del Baile para Niños Especiales",
+                  title: "Beneficios del Baile para Personas con Discapacidad",
                   excerpt: "Descubre cómo el movimiento y la música pueden mejorar el desarrollo físico y emocional.",
                   category: "Salud",
                 },

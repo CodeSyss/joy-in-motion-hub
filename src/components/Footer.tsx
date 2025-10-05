@@ -13,12 +13,12 @@ const Footer = () => {
                 <Heart className="w-6 h-6 text-primary-foreground" fill="currentColor" />
               </div>
               <div>
-                <h3 className="text-lg font-heading font-bold text-foreground">Fundación</h3>
-                <p className="text-xs text-muted-foreground">Niños Especiales</p>
+                <h3 className="text-base font-heading font-bold text-foreground">Cromosomas de</h3>
+                <p className="text-xs text-muted-foreground">Pasión, Amor y Ritmo</p>
               </div>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Promoviendo la inclusión y alegría de niños con necesidades especiales a través del baile y la comunidad.
+              Escuela de baile inclusiva promoviendo la alegría y el desarrollo de jóvenes super especiales con discapacidad.
             </p>
           </div>
 
@@ -108,7 +108,7 @@ const Footer = () => {
 
         <div className="border-t border-border mt-12 pt-8 text-center">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Fundación Niños Especiales. Todos los derechos reservados.
+            © {new Date().getFullYear()} Fundación Cromosomas de Pasión, Amor y Ritmo. Todos los derechos reservados.
           </p>
         </div>
       </div>

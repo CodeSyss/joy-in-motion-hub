@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { Heart, Target, Eye, Users } from "lucide-react";
+import { Heart, Target, Eye, Users, Trophy, Award, Globe } from "lucide-react";
 import communityImage from "@/assets/community.jpg";
 
 const QuienesSomos = () => {
@@ -63,7 +63,7 @@ const QuienesSomos = () => {
             <div className="max-w-3xl mx-auto text-center animate-fade-in">
               <h1 className="mb-6">Quiénes Somos</h1>
               <p className="text-xl leading-relaxed">
-                Somos una fundación comprometida con transformar vidas a través del baile, la inclusión y el apoyo comunitario para niños y jóvenes con necesidades especiales.
+                Somos una escuela de baile inclusiva comprometida con transformar vidas a través del baile, la inclusión y el apoyo comunitario para jóvenes super especiales con discapacidad.
               </p>
             </div>
           </div>
@@ -80,7 +80,7 @@ const QuienesSomos = () => {
                 </div>
                 <h2 className="mb-6">Transformar Vidas a Través del Baile</h2>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-4">
-                  Nuestra misión es crear un espacio seguro, acogedor e inclusivo donde niños y jóvenes con necesidades especiales puedan expresarse, desarrollar habilidades y formar parte de una comunidad que los ama y apoya.
+                  Nuestra misión es crear un espacio seguro, acogedor e inclusivo donde jóvenes super especiales con discapacidad puedan expresarse, desarrollar habilidades y formar parte de una comunidad que los ama y apoya.
                 </p>
                 <p className="text-lg text-muted-foreground leading-relaxed">
                   A través del poder del baile y las actividades comunitarias, promovemos el desarrollo físico, emocional y social de cada participante, celebrando sus logros y fomentando su confianza.
@@ -136,7 +136,7 @@ const QuienesSomos = () => {
                 </div>
                 <h2 className="mb-6">Un Mundo Más Inclusivo</h2>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-4">
-                  Soñamos con un mundo donde cada niño con necesidades especiales tenga acceso a oportunidades de desarrollo, expresión y alegría sin barreras ni limitaciones.
+                  Soñamos con un mundo donde cada persona con discapacidad tenga acceso a oportunidades de desarrollo, expresión y alegría sin barreras ni limitaciones.
                 </p>
                 <p className="text-lg text-muted-foreground leading-relaxed">
                   Aspiramos a ser un modelo de inclusión que inspire a otras comunidades a crear espacios donde la diversidad sea celebrada y cada persona pueda brillar con su luz única.
@@ -168,6 +168,95 @@ const QuienesSomos = () => {
                   </CardContent>
                 </Card>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Recognition Section */}
+        <section className="section-padding bg-gradient-soft">
+          <div className="container-custom">
+            <div className="text-center mb-16 animate-slide-up">
+              <h2 className="mb-4">Reconocimientos Internacionales</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Nuestros jóvenes super especiales han brillado en escenarios nacionales e internacionales, ganando premios y representando con orgullo a nuestra comunidad en diversos países.
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-8 mb-12">
+              {[
+                {
+                  icon: Trophy,
+                  title: "Campeonatos Ganados",
+                  stat: "25+",
+                  description: "Premios en competencias nacionales",
+                },
+                {
+                  icon: Globe,
+                  title: "Participación Internacional",
+                  stat: "8 Países",
+                  description: "Presentaciones en festivales internacionales",
+                },
+                {
+                  icon: Award,
+                  title: "Reconocimientos",
+                  stat: "50+",
+                  description: "Medallas y certificados de excelencia",
+                },
+              ].map((stat, index) => (
+                <Card key={index} className="card-hover border-2">
+                  <CardContent className="pt-8 pb-8 text-center">
+                    <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-warm flex items-center justify-center shadow-colored">
+                      <stat.icon className="w-10 h-10 text-primary-foreground" />
+                    </div>
+                    <div className="text-4xl font-heading font-bold text-primary mb-2">
+                      {stat.stat}
+                    </div>
+                    <h3 className="text-lg font-heading font-bold mb-3">{stat.title}</h3>
+                    <p className="text-muted-foreground">{stat.description}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            <div className="bg-background rounded-2xl p-8 md:p-12 shadow-md">
+              <h3 className="text-2xl font-heading font-bold text-center mb-8">Logros Destacados</h3>
+              <div className="grid md:grid-cols-2 gap-6">
+                {[
+                  {
+                    year: "2024",
+                    achievement: "Primer Lugar - Campeonato Nacional de Danza Inclusiva",
+                    location: "Ciudad de México, México",
+                  },
+                  {
+                    year: "2024",
+                    achievement: "Participación en Festival Internacional de Danza",
+                    location: "Miami, Estados Unidos",
+                  },
+                  {
+                    year: "2023",
+                    achievement: "Reconocimiento a la Excelencia en Inclusión",
+                    location: "Bogotá, Colombia",
+                  },
+                  {
+                    year: "2023",
+                    achievement: "Medalla de Oro - Competencia Regional",
+                    location: "Guadalajara, México",
+                  },
+                ].map((achievement, index) => (
+                  <div key={index} className="flex gap-4 p-4 rounded-lg bg-gradient-soft hover:shadow-md transition-all">
+                    <div className="shrink-0 w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center">
+                      <span className="text-lg font-bold text-accent">{achievement.year}</span>
+                    </div>
+                    <div>
+                      <h4 className="font-heading font-bold mb-1">{achievement.achievement}</h4>
+                      <p className="text-sm text-muted-foreground flex items-center gap-1">
+                        <Globe className="w-3 h-3" />
+                        {achievement.location}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
