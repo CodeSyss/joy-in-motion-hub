@@ -4,6 +4,8 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Heart, Target, Eye, Users, Trophy, Award, Globe } from "lucide-react";
 import communityImage from "@/assets/community.jpg";
+import fondoPrincipal from "@/assets/fondo-principal.jpg";
+import visionDance from "@/assets/vision-dance.jpg";
 import premioMariaLionza1 from "@/assets/premio-maria-lionza-1.jpg";
 import premioMariaLionzaPlaca from "@/assets/premio-maria-lionza-placa.jpg";
 import premioMusaOro from "@/assets/premio-musa-oro.jpg";
@@ -68,11 +70,19 @@ const QuienesSomos = () => {
       
       <main>
         {/* Hero Section */}
-        <section className="bg-gradient-hero text-primary-foreground section-padding">
-          <div className="container-custom">
+        <section 
+          className="relative text-primary-foreground section-padding overflow-hidden"
+          style={{
+            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${fondoPrincipal})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundAttachment: 'fixed'
+          }}
+        >
+          <div className="container-custom relative z-10">
             <div className="max-w-3xl mx-auto text-center animate-fade-in">
-              <h1 className="mb-6">Quiénes Somos</h1>
-              <p className="text-xl leading-relaxed">
+              <h1 className="mb-6 text-white">Quiénes Somos</h1>
+              <p className="text-xl leading-relaxed text-white">
                 Somos una escuela de baile inclusiva comprometida con transformar vidas a través del baile, la inclusión y el apoyo comunitario para jóvenes super especiales con discapacidad.
               </p>
             </div>
@@ -110,37 +120,11 @@ const QuienesSomos = () => {
 
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div className="order-2 lg:order-1 relative animate-fade-in">
-                <div className="bg-gradient-soft rounded-2xl p-8 md:p-12 shadow-md">
-                  <div className="space-y-6">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center shrink-0">
-                        <Heart className="w-6 h-6 text-accent" fill="currentColor" />
-                      </div>
-                      <div>
-                        <h4 className="font-heading font-bold mb-2">Inclusión Total</h4>
-                        <p className="text-muted-foreground">Un lugar donde todos son bienvenidos sin importar sus capacidades.</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center shrink-0">
-                        <Users className="w-6 h-6 text-secondary" />
-                      </div>
-                      <div>
-                        <h4 className="font-heading font-bold mb-2">Desarrollo Integral</h4>
-                        <p className="text-muted-foreground">Promovemos el crecimiento físico, emocional y social.</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-full bg-sunshine/20 flex items-center justify-center shrink-0">
-                        <Target className="w-6 h-6 text-sunshine-foreground" />
-                      </div>
-                      <div>
-                        <h4 className="font-heading font-bold mb-2">Impacto Duradero</h4>
-                        <p className="text-muted-foreground">Creamos experiencias que transforman vidas para siempre.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <img 
+                  src={visionDance} 
+                  alt="Jóvenes super especiales durante clase de baile" 
+                  className="rounded-2xl shadow-lg w-full"
+                />
               </div>
               <div className="order-1 lg:order-2 animate-slide-up">
                 <div className="inline-flex items-center gap-2 bg-accent/10 px-4 py-2 rounded-full mb-6">
