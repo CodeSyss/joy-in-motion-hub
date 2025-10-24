@@ -8,24 +8,29 @@ import communityImage from "@/assets/community.jpg";
 const QuienesSomos = () => {
   const team = [
     {
-      name: "Elena Rodríguez",
-      role: "Directora Fundadora",
-      bio: "Con más de 15 años de experiencia en educación especial y danza terapéutica.",
+      name: "Carmen Millán",
+      role: "Presidenta y Coreógrafa Principal",
+      bio: "Fundadora de Cromosomas de Pasión Amor y Ritmo. Líder visionaria con pasión por la inclusión a través del baile.",
     },
     {
-      name: "Miguel Ángel Torres",
-      role: "Instructor Principal de Baile",
-      bio: "Bailarín profesional especializado en programas de inclusión y movimiento expresivo.",
+      name: "Equipo Legal",
+      role: "Área Legal",
+      bio: "Gestión de documentación y procesos legales de la fundación.",
     },
     {
-      name: "Sofía Méndez",
-      role: "Coordinadora de Programas",
-      bio: "Psicóloga infantil dedicada a crear experiencias significativas para cada niño.",
+      name: "Equipo de Tecnología",
+      role: "Área de Tecnología y Medios",
+      bio: "Manejo de redes sociales, grabación de videos y coordinación de actividades virtuales.",
     },
     {
-      name: "Roberto Gutiérrez",
-      role: "Coordinador de Voluntarios",
-      bio: "Padre de familia y voluntario desde hace 5 años, ahora lidera nuestro equipo de apoyo.",
+      name: "Equipo Administrativo",
+      role: "Administración y Coordinación",
+      bio: "Gestión de recursos, planificación de eventos y apoyo operativo.",
+    },
+    {
+      name: "Equipo de Voluntariado",
+      role: "Secretariado y Voluntarios",
+      bio: "Coordinación de voluntarios y apoyo continuo en todas las actividades de la fundación.",
     },
   ];
 
@@ -73,17 +78,20 @@ const QuienesSomos = () => {
         <section className="section-padding bg-background">
           <div className="container-custom">
             <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
-              <div className="animate-slide-up">
+            <div className="animate-slide-up">
                 <div className="inline-flex items-center gap-2 bg-primary/10 px-4 py-2 rounded-full mb-6">
                   <Target className="w-5 h-5 text-primary" />
                   <span className="font-semibold text-primary">Nuestra Misión</span>
                 </div>
                 <h2 className="mb-6">Transformar Vidas a Través del Baile</h2>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-4">
-                  Nuestra misión es crear un espacio seguro, acogedor e inclusivo donde jóvenes super especiales con discapacidad puedan expresarse, desarrollar habilidades y formar parte de una comunidad que los ama y apoya.
+                  Fundada en noviembre de 2019 y constituida legalmente en junio de 2022, nuestra fundación nació como una oportunidad de desarrollo artístico mediante la creación de una Escuela de Baile para personas con distintas discapacidades: Síndrome de Down, Autismo, Asperger, Discapacidad Intelectual y TDAH.
+                </p>
+                <p className="text-lg text-muted-foreground leading-relaxed mb-4">
+                  Ofrecemos un espacio de crecimiento personal donde jóvenes y adultos con discapacidad pueden ser felices, desarrollar y mostrar sus talentos en el baile. Con 35 jóvenes en nuestro cuerpo de baile, trabajamos en el Gimnasio Vertical de Chacao todos los sábados de 3 a 5 pm.
                 </p>
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  A través del poder del baile y las actividades comunitarias, promovemos el desarrollo físico, emocional y social de cada participante, celebrando sus logros y fomentando su confianza.
+                  Realizamos bailoterapias en áreas abiertas de la Gran Caracas con el apoyo del Movimiento Venezolano de la Actividad Física, llevando un mensaje sensibilizador, motivador y positivo de inclusión social con el apoyo de representantes, colaboradores y aliados que continuamente hacen posibles nuestras actividades.
                 </p>
               </div>
               <div className="relative animate-fade-in">
@@ -186,21 +194,21 @@ const QuienesSomos = () => {
               {[
                 {
                   icon: Trophy,
-                  title: "Campeonatos Ganados",
-                  stat: "25+",
-                  description: "Premios en competencias nacionales",
+                  title: "Años de Impacto",
+                  stat: "5+",
+                  description: "Desde 2019 transformando vidas",
                 },
                 {
-                  icon: Globe,
-                  title: "Participación Internacional",
-                  stat: "8 Países",
-                  description: "Presentaciones en festivales internacionales",
+                  icon: Users,
+                  title: "Jóvenes Super Especiales",
+                  stat: "35",
+                  description: "Participantes activos en nuestro cuerpo de baile",
                 },
                 {
                   icon: Award,
                   title: "Reconocimientos",
-                  stat: "50+",
-                  description: "Medallas y certificados de excelencia",
+                  stat: "15+",
+                  description: "Certificados y reconocimientos oficiales",
                 },
               ].map((stat, index) => (
                 <Card key={index} className="card-hover border-2">
@@ -224,23 +232,53 @@ const QuienesSomos = () => {
                 {[
                   {
                     year: "2024",
-                    achievement: "Primer Lugar - Campeonato Nacional de Danza Inclusiva",
-                    location: "Ciudad de México, México",
+                    achievement: "Destacada labor aportando bienestar, inclusión y oportunidades",
+                    location: "Concejo Municipal de Chacao - Comisión de Bienestar e Innovación",
                   },
                   {
                     year: "2024",
-                    achievement: "Participación en Festival Internacional de Danza",
-                    location: "Miami, Estados Unidos",
+                    achievement: "Compromiso y creatividad en desarrollo de Actividad Física",
+                    location: "Concejo del Municipio Bolivariano Libertador",
+                  },
+                  {
+                    year: "2024",
+                    achievement: "Participación en Exposición Colectiva Eco de Picasso",
+                    location: "Museo de Arte Contemporáneo de Caracas Armando Reverón",
                   },
                   {
                     year: "2023",
-                    achievement: "Reconocimiento a la Excelencia en Inclusión",
-                    location: "Bogotá, Colombia",
+                    achievement: "Reconocimiento categoría Inclusión - Hacemos Ciudad",
+                    location: "Mi Convive",
                   },
                   {
                     year: "2023",
-                    achievement: "Medalla de Oro - Competencia Regional",
-                    location: "Guadalajara, México",
+                    achievement: "Labor para construir la ciudad de la convivencia",
+                    location: "Mi Convive",
+                  },
+                  {
+                    year: "2023",
+                    achievement: "Valioso aporte en Pro de la Actividad Física en Caracas",
+                    location: "Gobierno de Caracas y Alcaldía de Caracas",
+                  },
+                  {
+                    year: "2023",
+                    achievement: "Colaboración exposición Color Sin Límite - Homenaje a Carlos Cruz Diez",
+                    location: "Ministerio de Cultura - Fundación Museos Nacionales",
+                  },
+                  {
+                    year: "2023",
+                    achievement: "Apoyo en 15vo Aniversario de Abriendo Horizontes A.C.",
+                    location: "Abriendo Horizontes A.C.",
+                  },
+                  {
+                    year: "2023",
+                    achievement: "Fomentar Inclusión físico-corporal, social, deportiva y educativa",
+                    location: "Gimnasio Inclusivo ASOGIN",
+                  },
+                  {
+                    year: "2020",
+                    achievement: "Programa Emprendedoras en Cadena",
+                    location: "Aliadas en Cadena A.C.",
                   },
                 ].map((achievement, index) => (
                   <div key={index} className="flex gap-4 p-4 rounded-lg bg-gradient-soft hover:shadow-md transition-all">

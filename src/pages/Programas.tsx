@@ -8,45 +8,51 @@ import danceClassImage from "@/assets/dance-class.jpg";
 const Programas = () => {
   const programs = [
     {
-      title: "Baile Expresivo",
-      age: "5-10 años",
-      day: "Lunes y Miércoles",
-      time: "4:00 PM - 5:30 PM",
-      description: "Clases diseñadas para niños más pequeños donde exploran el movimiento y la música de forma lúdica.",
-      instructor: "Sofía Méndez",
-      capacity: "12 niños por clase",
+      title: "Escuela de Baile Coreográfico",
+      age: "Jóvenes y Adultos con Discapacidad",
+      day: "Sábados",
+      time: "3:00 PM - 5:00 PM",
+      description: "Clases presenciales de baile coreográfico en el Gimnasio Vertical de Chacao. Con 35 participantes activos, trabajamos coreografías para presentaciones en diversos eventos.",
+      instructor: "Carmen Millán",
+      capacity: "35 jóvenes super especiales",
       icon: Music,
     },
     {
-      title: "Danza Inclusiva",
-      age: "11-16 años",
-      day: "Martes y Jueves",
-      time: "5:00 PM - 6:30 PM",
-      description: "Programa para adolescentes que combina técnicas de danza contemporánea con expresión personal.",
-      instructor: "Miguel Ángel Torres",
-      capacity: "15 jóvenes por clase",
+      title: "Bailoterapias en Áreas Abiertas",
+      age: "Todas las edades",
+      day: "Varios días",
+      time: "Horarios variados",
+      description: "Bailoterapias realizadas en áreas abiertas de la Gran Caracas con el apoyo del Movimiento Venezolano de la Actividad Física. Llevamos mensajes de inclusión social a toda la comunidad.",
+      instructor: "Equipo Cromosomas",
+      capacity: "Abierto a la comunidad",
       icon: Heart,
     },
     {
-      title: "Baile Familiar",
-      age: "Todas las edades",
-      day: "Sábados",
-      time: "10:00 AM - 12:00 PM",
-      description: "Sesiones especiales donde familias enteras participan juntas en actividades de baile y movimiento.",
-      instructor: "Elena Rodríguez",
-      capacity: "10 familias por sesión",
+      title: "Sesiones Virtuales de Apoyo",
+      age: "Participantes de la escuela",
+      day: "Durante la semana",
+      time: "Disponible online",
+      description: "Videos de apoyo para practicar coreografías desde casa, ayudando al proceso cognitivo y preparación para presentaciones.",
+      instructor: "Carmen Millán",
+      capacity: "Todos los participantes",
       icon: Users,
     },
   ];
 
-  const schedule = [
-    { day: "Lunes", morning: "Preparación y Planificación", afternoon: "Baile Expresivo (4:00-5:30 PM)" },
-    { day: "Martes", morning: "Actividades Individuales", afternoon: "Danza Inclusiva (5:00-6:30 PM)" },
-    { day: "Miércoles", morning: "Preparación y Planificación", afternoon: "Baile Expresivo (4:00-5:30 PM)" },
-    { day: "Jueves", morning: "Actividades Individuales", afternoon: "Danza Inclusiva (5:00-6:30 PM)" },
-    { day: "Viernes", morning: "Talleres Especiales", afternoon: "Tiempo Libre y Juegos" },
-    { day: "Sábado", morning: "Baile Familiar (10:00 AM-12:00 PM)", afternoon: "Eventos Comunitarios" },
-    { day: "Domingo", morning: "Descanso", afternoon: "Descanso" },
+  const locations = [
+    "Caricuao UD-2D 2 Boulevard casa cultural Cumbe, A.C.Jesús Chucho García",
+    "Centro Comercial Paseo El Hatillo",
+    "Plaza Brión de Chacaíto",
+    "La Pastora Plaza La Pastora",
+    "Altagracia Plaza Juan Pedro López (BCV)",
+    "La Candelaria Plaza de la Candelaria",
+    "Paseo Los Ilustres en los Próceres 2023 Día del Desafío",
+    "Plaza Venezuela Clase parroquial",
+    "Centro Comercial Galería Ávila",
+    "Parque Generalísimo Francisco de Miranda",
+    "Petare Casco Colonial Plaza Sucre",
+    "Paseo Los Ilustres en los Próceres 2024 Día de Caracas",
+    "Hotel Playa Grande Hotel Caribe",
   ];
 
   return (
@@ -153,36 +159,24 @@ const Programas = () => {
           </div>
         </section>
 
-        {/* Schedule */}
+        {/* Locations */}
         <section className="section-padding bg-muted/30">
           <div className="container-custom">
             <div className="text-center mb-16 animate-slide-up">
-              <h2 className="mb-4">Horario Semanal</h2>
+              <h2 className="mb-4">Lugares Donde Bailamos</h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Nuestro cronograma completo de actividades durante la semana.
+                Realizamos bailoterapias y presentaciones en diversos espacios públicos de Caracas, llevando nuestro mensaje de inclusión a toda la comunidad.
               </p>
             </div>
             
-            <div className="max-w-5xl mx-auto">
-              <div className="overflow-x-auto">
-                <table className="w-full border-collapse">
-                  <thead>
-                    <tr className="bg-primary text-primary-foreground">
-                      <th className="p-4 text-left font-heading font-bold border border-border">Día</th>
-                      <th className="p-4 text-left font-heading font-bold border border-border">Mañana</th>
-                      <th className="p-4 text-left font-heading font-bold border border-border">Tarde</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {schedule.map((item, index) => (
-                      <tr key={index} className="bg-card hover:bg-muted/50 transition-colors">
-                        <td className="p-4 font-semibold border border-border">{item.day}</td>
-                        <td className="p-4 text-muted-foreground border border-border">{item.morning}</td>
-                        <td className="p-4 text-muted-foreground border border-border">{item.afternoon}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+            <div className="max-w-4xl mx-auto">
+              <div className="grid md:grid-cols-2 gap-4">
+                {locations.map((location, index) => (
+                  <div key={index} className="flex items-start gap-3 p-4 bg-card rounded-lg hover:shadow-md transition-all">
+                    <MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                    <span className="text-sm text-muted-foreground">{location}</span>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -192,13 +186,14 @@ const Programas = () => {
                   <div className="flex items-start gap-4">
                     <MapPin className="w-6 h-6 text-accent shrink-0 mt-1" />
                     <div>
-                      <h4 className="font-heading font-bold mb-2">Ubicación</h4>
+                      <h4 className="font-heading font-bold mb-2">Ubicación Principal</h4>
                       <p className="text-muted-foreground leading-relaxed mb-2">
-                        Todas nuestras clases se llevan a cabo en nuestro centro comunitario ubicado en:
+                        Nuestras clases semanales se realizan en:
                       </p>
-                      <p className="font-semibold">123 Calle Principal, Ciudad</p>
+                      <p className="font-semibold">Gimnasio Vertical de Chacao</p>
+                      <p className="text-sm text-muted-foreground">Bello Campo, Municipio Chacao, Caracas</p>
                       <p className="text-sm text-muted-foreground mt-2">
-                        Instalaciones accesibles con estacionamiento disponible.
+                        Sábados de 3:00 PM a 5:00 PM · Instalaciones completamente accesibles
                       </p>
                     </div>
                   </div>

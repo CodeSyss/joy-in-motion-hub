@@ -1,7 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Heart } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import logo from "@/assets/logo.jpg";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,16 +24,16 @@ const Navigation = () => {
       <div className="container-custom">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 hover-scale">
-            <div className="w-12 h-12 bg-gradient-hero rounded-full flex items-center justify-center shadow-colored">
-              <Heart className="w-6 h-6 text-primary-foreground" fill="currentColor" />
-            </div>
-            <div className="hidden md:block">
-              <h2 className="text-lg font-heading font-bold text-foreground leading-tight">
-                Cromosomas de
-              </h2>
-              <p className="text-xs text-muted-foreground font-body">Pasión, Amor y Ritmo</p>
-            </div>
+          <Link to="/" className="flex items-center gap-3 group">
+            <img 
+              src={logo} 
+              alt="Fundación Cromosomas de Pasión, Amor y Ritmo" 
+              className="w-14 h-14 object-contain group-hover:scale-110 transition-transform"
+            />
+            <span className="font-heading font-bold text-base hidden sm:block leading-tight">
+              Fundación Cromosomas<br />
+              <span className="text-[#E91E8C]">Pasión</span> · <span className="text-[#4FB3D9]">Amor</span> · <span className="text-[#7FBF3F]">Ritmo</span>
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
