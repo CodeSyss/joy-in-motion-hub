@@ -4,6 +4,11 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Heart, Target, Eye, Users, Trophy, Award, Globe } from "lucide-react";
 import communityImage from "@/assets/community.jpg";
+import premioMariaLionza1 from "@/assets/premio-maria-lionza-1.jpg";
+import premioMariaLionzaPlaca from "@/assets/premio-maria-lionza-placa.jpg";
+import premioMusaOro from "@/assets/premio-musa-oro.jpg";
+import premioMariaLionza2023 from "@/assets/premio-maria-lionza-2023.jpg";
+import premioExcelencia2023 from "@/assets/premio-excelencia-2023.jpg";
 
 const QuienesSomos = () => {
   const team = [
@@ -184,9 +189,9 @@ const QuienesSomos = () => {
         <section className="section-padding bg-gradient-soft">
           <div className="container-custom">
             <div className="text-center mb-16 animate-slide-up">
-              <h2 className="mb-4">Reconocimientos Internacionales</h2>
+              <h2 className="mb-4">Premios y Reconocimientos</h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Nuestros jóvenes super especiales han brillado en escenarios nacionales e internacionales, ganando premios y representando con orgullo a nuestra comunidad en diversos países.
+                Nuestros jóvenes super especiales han ganado prestigiosos premios que reconocen su talento, dedicación y el impacto positivo de nuestra escuela de baile inclusiva.
               </p>
             </div>
             
@@ -226,8 +231,90 @@ const QuienesSomos = () => {
               ))}
             </div>
 
+            {/* Galería de Premios */}
+            <div className="mb-16">
+              <h3 className="text-2xl font-heading font-bold text-center mb-8">Galería de Premios</h3>
+              <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
+                {[
+                  { image: premioMariaLionza1, alt: "Premio María Lionza de Oro 2024", caption: "María Lionza Revelación del Año 2024" },
+                  { image: premioMusaOro, alt: "Premio Musa de Oro 2025", caption: "Legados de la Danza 2025" },
+                  { image: premioMariaLionza2023, alt: "Premio María Lionza 2023", caption: "María Lionza de Oro 2023" },
+                  { image: premioExcelencia2023, alt: "Premio Excelencia 2023", caption: "Danzas del Año con Proyección" },
+                  { image: premioMariaLionzaPlaca, alt: "Placa Reconocimiento 2024", caption: "Premiando lo Mejor de la Excelencia" },
+                ].map((premio, index) => (
+                  <Card key={index} className="card-hover overflow-hidden">
+                    <CardContent className="p-0">
+                      <div className="aspect-square overflow-hidden bg-muted">
+                        <img 
+                          src={premio.image} 
+                          alt={premio.alt}
+                          className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                        />
+                      </div>
+                      <div className="p-4">
+                        <p className="text-sm text-center font-semibold text-muted-foreground">{premio.caption}</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
             <div className="bg-background rounded-2xl p-8 md:p-12 shadow-md">
-              <h3 className="text-2xl font-heading font-bold text-center mb-8">Logros Destacados</h3>
+              <h3 className="text-2xl font-heading font-bold text-center mb-8">Premios Principales</h3>
+              <div className="space-y-6 max-w-4xl mx-auto mb-12">
+                {[
+                  {
+                    year: "2025",
+                    achievement: "Premios Musa de Oro - 'Legados de la Danza'",
+                    description: "Reconocimiento por 5 años de excelente trayectoria y destacada participación en el homenaje a la Bailarina del pueblo Venezolano, la Maestra 'Yolanda Moreno'",
+                    location: "Teatro INCRET, Caracas - 26 de Abril de 2025",
+                  },
+                  {
+                    year: "2024",
+                    achievement: "Premio María Lionza de Oro - 'Revelación del Año'",
+                    description: "Premiando lo mejor entre los mejores de la excelencia. Rescate estratégico en jóvenes con condición integral",
+                    location: "Fundación Cultural María Lionza de Oro - 04 de Diciembre 2024",
+                  },
+                  {
+                    year: "2023",
+                    achievement: "Premios María Lionza de Oro - Edición Especial",
+                    description: "Reconocimiento a Cromosomas por excelencia en danza inclusiva",
+                    location: "Fundación María Lionza de Oro - 30 de Septiembre 2023",
+                  },
+                  {
+                    year: "2023",
+                    achievement: "Academia Cromosomas - Danzas de Jóvenes Especiales del Año con Proyección",
+                    description: "Premiando lo mejor de lo mejor de la excelencia",
+                    location: "30 de Septiembre 2023",
+                  },
+                ].map((premio, index) => (
+                  <Card key={index} className="border-l-4 border-l-accent">
+                    <CardContent className="pt-6 pb-6">
+                      <div className="flex gap-4">
+                        <div className="shrink-0">
+                          <div className="w-20 h-20 rounded-full bg-gradient-warm flex items-center justify-center shadow-colored">
+                            <Award className="w-10 h-10 text-primary-foreground" />
+                          </div>
+                        </div>
+                        <div className="flex-1">
+                          <div className="inline-block px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-bold mb-2">
+                            {premio.year}
+                          </div>
+                          <h4 className="font-heading font-bold text-lg mb-2">{premio.achievement}</h4>
+                          <p className="text-muted-foreground mb-2">{premio.description}</p>
+                          <p className="text-sm text-muted-foreground flex items-center gap-1">
+                            <Globe className="w-4 h-4" />
+                            {premio.location}
+                          </p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              <h3 className="text-2xl font-heading font-bold text-center mb-8">Certificados y Reconocimientos</h3>
               <div className="grid md:grid-cols-2 gap-6">
                 {[
                   {
