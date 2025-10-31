@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import { Heart, Users, Calendar, BookOpen, ArrowRight, Star, Trophy, Award } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import heroImage from "@/assets/hero-dance.jpg";
+import fondoPrincipal from "@/assets/fondo-principal.jpg";
 import communityImage from "@/assets/community.jpg";
-import danceClassImage from "@/assets/dance-class.jpg";
+import visionDance from "@/assets/vision-dance.jpg";
 
 const Index = () => {
   const features = [
@@ -72,15 +72,15 @@ const Index = () => {
       
       <main>
         {/* Hero Section */}
-        <section className="relative min-h-[600px] md:min-h-[700px] flex items-center overflow-hidden">
-          <div className="absolute inset-0">
-            <img 
-              src={heroImage} 
-              alt="Niños bailando con alegría en la fundación" 
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-transparent" />
-          </div>
+        <section 
+          className="relative min-h-[600px] md:min-h-[700px] flex items-center overflow-hidden"
+          style={{
+            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${fondoPrincipal})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundAttachment: 'fixed'
+          }}
+        >
           
           <div className="container-custom relative z-10">
             <div className="max-w-2xl animate-fade-in">
@@ -283,10 +283,10 @@ const Index = () => {
 
         {/* CTA Section */}
         <section className="section-padding bg-gradient-hero relative overflow-hidden">
-          <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0 opacity-20">
             <img 
-              src={danceClassImage} 
-              alt="Clase de baile" 
+              src={visionDance} 
+              alt="Jóvenes bailando en la fundación" 
               className="w-full h-full object-cover"
             />
           </div>
