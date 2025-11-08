@@ -1,11 +1,38 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { Heart, Users, Gift, Star, CheckCircle, ArrowRight } from "lucide-react";
+import { Heart, Users, Gift, Star, CheckCircle, ArrowRight, ArrowLeft } from "lucide-react";
 import danceClassImage from "@/assets/dance-class.jpg";
+import { useState } from "react";
 
 const Donar = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [donationType, setDonationType] = useState<"once" | "monthly">("once");
+  const [selectedAmount, setSelectedAmount] = useState<number | null>(20);
+  const [customAmount, setCustomAmount] = useState("");
+  const [step, setStep] = useState(1);
+  const [showUpsell, setShowUpsell] = useState(false);
+  const [dedicateInHonor, setDedicateInHonor] = useState(false);
+  const [addComment, setAddComment] = useState(false);
+  const [showOnWall, setShowOnWall] = useState(false);
+
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    country: "Venezuela",
+    address: "",
+    address2: "",
+    anonymous: false,
+  });
+
   const impactAreas = [
     {
       icon: Users,
@@ -30,88 +57,511 @@ const Donar = () => {
     },
   ];
 
-  const donationLevels = [
+  const donationOptions = [
     {
-      name: "Amigo",
-      amount: "$25",
-      benefits: ["Reconocimiento en redes sociales", "Boletín mensual", "Invitación a evento anual"],
+      amount: 20,
+      description: "Terapia Ocupacional: contribuye a mejorar la independencia, la comunicación, y las habilidades sociales, así como en el abordaje de sus desafíos sensoriales y motores.",
     },
     {
-      name: "Patrocinador",
-      amount: "$100",
-      benefits: [
-        "Todos los beneficios de Amigo",
-        "Reconocimiento en nuestro sitio web",
-        "Invitación VIP a presentaciones",
-        "Reporte de impacto trimestral",
-      ],
-      featured: true,
+      amount: 40,
+      description: "Bailoterapia: apoya sesiones que promueven la expresión corporal, el ritmo y la coordinación.",
     },
     {
-      name: "Benefactor",
-      amount: "$250",
-      benefits: [
-        "Todos los beneficios de Patrocinador",
-        "Reunión anual con el equipo directivo",
-        "Reconocimiento en materiales impresos",
-        "Tour privado de instalaciones",
-      ],
+      amount: 60,
+      description: "Programa Integral: financia múltiples terapias para un niño durante un mes.",
     },
   ];
 
-  const ways = [
-    {
-      title: "Donación Única",
-      description: "Aporta la cantidad que desees en cualquier momento. Cada contribución cuenta.",
-      icon: Heart,
-    },
-    {
-      title: "Donación Mensual",
-      description: "Conviértete en un patrocinador recurrente y apoya de forma constante nuestros programas.",
-      icon: Users,
-    },
-    {
-      title: "Donación en Especie",
-      description: "Dona materiales, equipos, o servicios profesionales que necesitemos.",
-      icon: Gift,
-    },
-    {
-      title: "Donación Corporativa",
-      description: "¿Tu empresa quiere hacer la diferencia? Ofrecemos programas para socios corporativos.",
-      icon: Star,
-    },
-  ];
+  const handleContinue = () => {
+    if (step === 1 && donationType === "once" && !showUpsell) {
+      setShowUpsell(true);
+    } else {
+      setShowUpsell(false);
+      setStep(2);
+    }
+  };
+
+  const handlePayExpress = () => {
+    console.log("Pago exprés iniciado");
+    // Aquí iría la integración de pago
+  };
+
+  const handleSubmit = () => {
+    console.log("Donación procesada", {
+      type: donationType,
+      amount: selectedAmount || customAmount,
+      ...formData,
+    });
+    setIsModalOpen(false);
+    setStep(1);
+    setShowUpsell(false);
+  };
+
+  const stats = {
+    raised: 19854.63,
+    donations: 255,
+    goal: 50000,
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />
       
       <main>
-        {/* Hero Section */}
-        <section className="relative min-h-[500px] flex items-center overflow-hidden">
-          <div className="absolute inset-0">
-            <img 
-              src={danceClassImage} 
-              alt="Niños en clase de baile" 
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-secondary/95 via-secondary/80 to-transparent" />
+        {/* Hero Section con estadísticas */}
+        <section className="relative min-h-[600px] flex items-center overflow-hidden bg-[#1e4ea3]">
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#1e4ea3] to-[#0d2d5e]" />
           </div>
           
           <div className="container-custom relative z-10">
-            <div className="max-w-2xl animate-fade-in">
-              <h1 className="text-primary-foreground mb-6">
-                Transforma Vidas con Tu Apoyo
-              </h1>
-              <p className="text-xl text-primary-foreground/95 mb-8 leading-relaxed">
-                Tu generosidad hace posible que sigamos ofreciendo programas de calidad que cambian vidas. Cada donación crea oportunidades de alegría, inclusión y desarrollo.
-              </p>
-              <Button variant="warm" size="lg" className="text-lg">
-                Donar Ahora <Heart className="ml-2" fill="currentColor" />
-              </Button>
+            <div className="max-w-5xl mx-auto">
+              <div className="text-center mb-12 animate-fade-in">
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4">
+                  <span className="text-[#FFD700]">Completa</span>
+                  <br />
+                  un sueño
+                </h1>
+                <p className="text-2xl md:text-3xl text-white/90 font-medium">
+                  Tú eres <span className="text-[#FFD700]">una pieza especial</span> en su vida.
+                </p>
+              </div>
+
+              {/* Card con estadísticas y botón donar */}
+              <Card className="max-w-4xl mx-auto shadow-2xl">
+                <CardContent className="p-0">
+                  <div className="border-b">
+                    <div className="flex gap-6 p-4">
+                      <button className="px-4 py-2 text-sm font-semibold border-b-2 border-[#1e4ea3] text-[#1e4ea3]">
+                        Detalles
+                      </button>
+                      <button className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground">
+                        Novedades <span className="text-xs">0</span>
+                      </button>
+                      <button className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground">
+                        Pared de donantes <span className="text-xs">9</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="p-8">
+                    <div className="flex flex-col md:flex-row gap-8 items-start">
+                      {/* Estadísticas */}
+                      <div className="flex-1 grid grid-cols-3 gap-4 text-center">
+                        <div>
+                          <div className="text-2xl font-bold text-foreground">
+                            ${stats.raised.toLocaleString()}
+                          </div>
+                          <div className="text-xs text-muted-foreground uppercase">Recaudado</div>
+                        </div>
+                        <div>
+                          <div className="text-2xl font-bold text-foreground">{stats.donations}</div>
+                          <div className="text-xs text-muted-foreground uppercase">Donaciones</div>
+                        </div>
+                        <div>
+                          <div className="text-2xl font-bold text-foreground">
+                            ${stats.goal.toLocaleString()}
+                          </div>
+                          <div className="text-xs text-muted-foreground uppercase">Objetivo</div>
+                        </div>
+                      </div>
+
+                      {/* Botón Donar */}
+                      <Button 
+                        onClick={() => setIsModalOpen(true)}
+                        className="bg-[#1e4ea3] hover:bg-[#1a4289] text-white px-12 py-6 text-lg font-semibold rounded-full shadow-lg"
+                      >
+                        Donar
+                      </Button>
+                    </div>
+
+                    {/* Barra de progreso */}
+                    <div className="mt-6">
+                      <div className="h-2 bg-muted rounded-full overflow-hidden">
+                        <div 
+                          className="h-full bg-[#1e4ea3] rounded-full transition-all"
+                          style={{ width: `${(stats.raised / stats.goal) * 100}%` }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </section>
+
+        {/* Modal de Donación */}
+        <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+          <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto bg-white">
+            {!showUpsell && step === 1 && (
+              <>
+                <DialogHeader className="bg-[#1e4ea3] text-white -mx-6 -mt-6 px-6 py-4 mb-6">
+                  <div className="flex items-center justify-between">
+                    <DialogTitle className="text-lg font-semibold">Elija la cantidad</DialogTitle>
+                    <div className="flex gap-1">
+                      {[1, 2, 3, 4].map((dot) => (
+                        <div
+                          key={dot}
+                          className={`w-2 h-2 rounded-full ${
+                            dot === 1 ? "bg-white" : "bg-white/30"
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </DialogHeader>
+
+                {/* Imagen de beneficiarios */}
+                <div className="mb-4 -mx-6">
+                  <img 
+                    src={danceClassImage} 
+                    alt="Niños beneficiarios" 
+                    className="w-full h-32 object-cover"
+                  />
+                  <div className="absolute top-32 left-1/2 transform -translate-x-1/2 bg-[#1e4ea3] text-white px-4 py-2 rounded-lg text-sm font-medium">
+                    Acompañamos con tu aporte mensual
+                  </div>
+                </div>
+
+                <div className="mt-8">
+                  {/* Toggle Una sola vez / Mensual */}
+                  <div className="flex gap-2 mb-6">
+                    <Button
+                      type="button"
+                      onClick={() => setDonationType("once")}
+                      className={`flex-1 rounded-full ${
+                        donationType === "once"
+                          ? "bg-[#1e4ea3] text-white"
+                          : "bg-white text-[#1e4ea3] border-2 border-[#1e4ea3]"
+                      }`}
+                    >
+                      Una sola vez
+                    </Button>
+                    <Button
+                      type="button"
+                      onClick={() => setDonationType("monthly")}
+                      className={`flex-1 rounded-full ${
+                        donationType === "monthly"
+                          ? "bg-[#1e4ea3] text-white"
+                          : "bg-white text-[#1e4ea3] border-2 border-[#1e4ea3]"
+                      }`}
+                    >
+                      Mensual
+                    </Button>
+                  </div>
+
+                  {/* Opciones de donación */}
+                  <RadioGroup value={selectedAmount?.toString() || "custom"} className="space-y-3">
+                    {donationOptions.map((option) => (
+                      <div
+                        key={option.amount}
+                        onClick={() => {
+                          setSelectedAmount(option.amount);
+                          setCustomAmount("");
+                        }}
+                        className={`flex items-start gap-3 p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                          selectedAmount === option.amount
+                            ? "border-[#1e4ea3] bg-[#1e4ea3]/5"
+                            : "border-border hover:border-[#1e4ea3]/50"
+                        }`}
+                      >
+                        <RadioGroupItem value={option.amount.toString()} className="mt-1" />
+                        <div className="flex-1">
+                          <div className="text-xl font-bold text-[#1e4ea3] mb-1">
+                            ${option.amount}
+                          </div>
+                          <p className="text-sm text-muted-foreground leading-relaxed">
+                            {option.description}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+
+                    {/* Otra cantidad */}
+                    <div
+                      onClick={() => setSelectedAmount(null)}
+                      className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                        selectedAmount === null
+                          ? "border-[#1e4ea3] bg-[#1e4ea3]/5"
+                          : "border-border hover:border-[#1e4ea3]/50"
+                      }`}
+                    >
+                      <div className="flex items-center gap-3 mb-2">
+                        <RadioGroupItem value="custom" />
+                        <span className="font-semibold">$ Otra cantidad</span>
+                      </div>
+                      {selectedAmount === null && (
+                        <Input
+                          type="number"
+                          placeholder="Introduzca una otra cantidad"
+                          value={customAmount}
+                          onChange={(e) => setCustomAmount(e.target.value)}
+                          className="mt-2"
+                        />
+                      )}
+                    </div>
+                  </RadioGroup>
+
+                  {/* Checkboxes adicionales */}
+                  <div className="space-y-3 mt-6">
+                    <div className="flex items-start gap-2">
+                      <Checkbox
+                        id="dedicate"
+                        checked={dedicateInHonor}
+                        onCheckedChange={(checked) => setDedicateInHonor(checked as boolean)}
+                      />
+                      <label htmlFor="dedicate" className="text-sm cursor-pointer">
+                        Dedica mi donación en honor a o en memoria de alguien
+                      </label>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <Checkbox
+                        id="comment"
+                        checked={addComment}
+                        onCheckedChange={(checked) => setAddComment(checked as boolean)}
+                      />
+                      <label htmlFor="comment" className="text-sm cursor-pointer">
+                        Escribenos un comentario
+                      </label>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <Checkbox
+                        id="wall"
+                        checked={showOnWall}
+                        onCheckedChange={(checked) => setShowOnWall(checked as boolean)}
+                      />
+                      <label htmlFor="wall" className="text-sm cursor-pointer">
+                        Muestra tu donación y comenta en el muro de donantes
+                      </label>
+                    </div>
+                  </div>
+
+                  {/* Botones de acción */}
+                  <div className="mt-8 space-y-3">
+                    <div className="text-center text-sm text-muted-foreground mb-2">
+                      Pago exprés
+                    </div>
+                    <Button
+                      onClick={handlePayExpress}
+                      className="w-full bg-[#00d924] hover:bg-[#00c021] text-white font-semibold py-6 rounded-lg text-base"
+                    >
+                      Pagar con <span className="ml-2 font-bold">link</span>
+                    </Button>
+                    
+                    <div className="relative">
+                      <div className="absolute inset-0 flex items-center">
+                        <div className="w-full border-t border-border"></div>
+                      </div>
+                      <div className="relative flex justify-center text-xs uppercase">
+                        <span className="bg-white px-2 text-muted-foreground">O</span>
+                      </div>
+                    </div>
+
+                    <div className="text-center text-sm text-muted-foreground mb-2">
+                      Pago estándar
+                    </div>
+                    <Button
+                      onClick={handleContinue}
+                      className="w-full bg-[#1e4ea3] hover:bg-[#1a4289] text-white font-semibold py-6 rounded-lg text-base"
+                    >
+                      Continuar <ArrowRight className="ml-2" />
+                    </Button>
+                  </div>
+                </div>
+              </>
+            )}
+
+            {showUpsell && (
+              <>
+                <DialogHeader className="bg-[#1e4ea3] text-white -mx-6 -mt-6 px-6 py-4 mb-6">
+                  <div className="flex items-center gap-3">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => setShowUpsell(false)}
+                      className="text-white hover:bg-white/20"
+                    >
+                      <ArrowLeft className="w-5 h-5" />
+                    </Button>
+                    <DialogTitle className="text-lg font-semibold">Venta adicional</DialogTitle>
+                  </div>
+                </DialogHeader>
+
+                <div className="py-8 px-2 text-center">
+                  <h3 className="text-2xl font-bold mb-6">
+                    ¿Mejorar a una donación<br />recurrente mensual?
+                  </h3>
+                  <p className="text-muted-foreground mb-8 leading-relaxed">
+                    Plantéate convertirte en una parte funcional de nuestra visión mejorando tu
+                    donación de {selectedAmount || customAmount},00 $ original a una donación
+                    recurrente mensualmente de {((selectedAmount || Number(customAmount)) / 2).toFixed(2)} $.
+                  </p>
+
+                  <div className="space-y-3">
+                    <Button
+                      onClick={() => {
+                        setDonationType("monthly");
+                        setStep(2);
+                        setShowUpsell(false);
+                      }}
+                      className="w-full bg-[#1e4ea3] hover:bg-[#1a4289] text-white font-semibold py-6 rounded-full text-base"
+                    >
+                      Mejorar a {((selectedAmount || Number(customAmount)) / 2).toFixed(2)} $ mensualmente
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        setStep(2);
+                        setShowUpsell(false);
+                      }}
+                      variant="outline"
+                      className="w-full font-semibold py-6 rounded-full text-base"
+                    >
+                      Continuar con la donación de {selectedAmount || customAmount},00 $
+                    </Button>
+                  </div>
+                </div>
+              </>
+            )}
+
+            {step === 2 && !showUpsell && (
+              <>
+                <DialogHeader className="bg-[#1e4ea3] text-white -mx-6 -mt-6 px-6 py-4 mb-6">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => setStep(1)}
+                        className="text-white hover:bg-white/20"
+                      >
+                        <ArrowLeft className="w-5 h-5" />
+                      </Button>
+                      <DialogTitle className="text-lg font-semibold">Información</DialogTitle>
+                    </div>
+                    <div className="flex gap-1">
+                      {[1, 2, 3, 4].map((dot) => (
+                        <div
+                          key={dot}
+                          className={`w-2 h-2 rounded-full ${
+                            dot === 4 ? "bg-white" : "bg-white/30"
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </DialogHeader>
+
+                <div className="space-y-4">
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <Label htmlFor="firstName" className="text-sm font-medium mb-1">
+                        Nombre
+                      </Label>
+                      <Input
+                        id="firstName"
+                        placeholder="Nombre de pila"
+                        value={formData.firstName}
+                        onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="lastName" className="text-sm font-medium mb-1">
+                        Apellidos
+                      </Label>
+                      <Input
+                        id="lastName"
+                        placeholder="Apellidos"
+                        value={formData.lastName}
+                        onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <Checkbox
+                      id="anonymous"
+                      checked={formData.anonymous}
+                      onCheckedChange={(checked) =>
+                        setFormData({ ...formData, anonymous: checked as boolean })
+                      }
+                    />
+                    <label htmlFor="anonymous" className="text-sm cursor-pointer">
+                      Hacer la donación de forma anónima ⓘ
+                    </label>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="email" className="text-sm font-medium mb-1">
+                      Correo electrónico
+                    </Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="nombre@email.com"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="phone" className="text-sm font-medium mb-1">
+                      Teléfono
+                    </Label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      placeholder="(123) 456-7890"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="country" className="text-sm font-medium mb-1">
+                      País
+                    </Label>
+                    <Input
+                      id="country"
+                      value={formData.country}
+                      onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="address" className="text-sm font-medium mb-1">
+                      Dirección Línea 1
+                    </Label>
+                    <Input
+                      id="address"
+                      placeholder="Dirección de la calle"
+                      value={formData.address}
+                      onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="address2" className="text-sm font-medium mb-1">
+                      Línea de dirección 2 <span className="text-muted-foreground">(opcional)</span>
+                    </Label>
+                    <Input
+                      id="address2"
+                      value={formData.address2}
+                      onChange={(e) => setFormData({ ...formData, address2: e.target.value })}
+                    />
+                  </div>
+
+                  <Button
+                    onClick={handleSubmit}
+                    className="w-full bg-[#1e4ea3] hover:bg-[#1a4289] text-white font-semibold py-6 rounded-lg text-base mt-6"
+                  >
+                    Completar Donación <ArrowRight className="ml-2" />
+                  </Button>
+                </div>
+              </>
+            )}
+          </DialogContent>
+        </Dialog>
 
         {/* Impact Areas */}
         <section className="section-padding bg-background">
@@ -135,89 +585,6 @@ const Donar = () => {
                     </div>
                     <h3 className="text-xl font-heading font-bold mb-3">{area.title}</h3>
                     <p className="text-muted-foreground leading-relaxed">{area.description}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Donation Levels */}
-        <section className="section-padding bg-gradient-soft">
-          <div className="container-custom">
-            <div className="text-center mb-16 animate-slide-up">
-              <h2 className="mb-4">Niveles de Donación</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Elige el nivel que mejor se ajuste a tu capacidad de apoyo.
-              </p>
-            </div>
-            
-            <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {donationLevels.map((level, index) => (
-                <Card 
-                  key={index} 
-                  className={`card-hover ${level.featured ? "border-2 border-primary shadow-lg scale-105" : ""}`}
-                >
-                  <CardContent className="pt-8 pb-8">
-                    {level.featured && (
-                      <div className="text-center mb-4">
-                        <span className="inline-block px-4 py-1 rounded-full bg-primary text-primary-foreground text-xs font-bold">
-                          MÁS POPULAR
-                        </span>
-                      </div>
-                    )}
-                    <div className="text-center mb-6">
-                      <h3 className="text-2xl font-heading font-bold mb-2">{level.name}</h3>
-                      <div className="text-4xl font-heading font-bold text-primary">{level.amount}</div>
-                      <p className="text-sm text-muted-foreground">por mes</p>
-                    </div>
-
-                    <ul className="space-y-3 mb-8">
-                      {level.benefits.map((benefit, idx) => (
-                        <li key={idx} className="flex items-start gap-2">
-                          <CheckCircle className="w-5 h-5 text-accent shrink-0 mt-0.5" />
-                          <span className="text-sm text-muted-foreground">{benefit}</span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    <Button 
-                      variant={level.featured ? "default" : "outline"} 
-                      size="lg" 
-                      className="w-full"
-                    >
-                      Seleccionar
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Ways to Give */}
-        <section className="section-padding bg-background">
-          <div className="container-custom">
-            <div className="text-center mb-16 animate-slide-up">
-              <h2 className="mb-4">Formas de Donar</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Elige la modalidad que mejor se adapte a ti.
-              </p>
-            </div>
-            
-            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              {ways.map((way, index) => (
-                <Card key={index} className="card-hover">
-                  <CardContent className="pt-8 pb-8">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                        <way.icon className="w-6 h-6 text-primary" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="text-lg font-heading font-bold mb-2">{way.title}</h3>
-                        <p className="text-muted-foreground leading-relaxed">{way.description}</p>
-                      </div>
-                    </div>
                   </CardContent>
                 </Card>
               ))}
@@ -316,7 +683,12 @@ const Donar = () => {
                 Tu donación hoy crea oportunidades de alegría, desarrollo e inclusión para niños que lo necesitan.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button variant="default" size="lg" className="text-lg">
+                <Button 
+                  onClick={() => setIsModalOpen(true)}
+                  variant="default" 
+                  size="lg" 
+                  className="text-lg"
+                >
                   Donar Ahora <Heart className="ml-2" fill="currentColor" />
                 </Button>
                 <Button 

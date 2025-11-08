@@ -7,7 +7,6 @@ import Index from "./pages/Index";
 import QuienesSomos from "./pages/QuienesSomos";
 import Programas from "./pages/Programas";
 import Eventos from "./pages/Eventos";
-import Articulos from "./pages/Articulos";
 import Contacto from "./pages/Contacto";
 import Voluntariado from "./pages/Voluntariado";
 import Donar from "./pages/Donar";
@@ -26,7 +25,6 @@ const App = () => (
           <Route path="/quienes-somos" element={<QuienesSomos />} />
           <Route path="/programas" element={<Programas />} />
           <Route path="/eventos" element={<Eventos />} />
-          <Route path="/articulos" element={<Articulos />} />
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/voluntariado" element={<Voluntariado />} />
           <Route path="/donar" element={<Donar />} />
