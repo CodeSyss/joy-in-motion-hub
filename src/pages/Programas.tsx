@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Music, Heart, Users, Calendar, Clock, MapPin } from "lucide-react";
-import danceClassImage from "@/assets/dance-class.jpg";
+import grupoComunidad from "@/assets/grupo-comunidad.jpg";
 
 const Programas = () => {
   const programs = [
@@ -149,8 +149,8 @@ const Programas = () => {
                 </div>
                 <div>
                   <img 
-                    src={danceClassImage} 
-                    alt="Clase de baile en acción" 
+                    src={grupoComunidad} 
+                    alt="Grupo de la comunidad celebrando juntos" 
                     className="rounded-xl shadow-lg w-full"
                   />
                 </div>

@@ -5,7 +5,9 @@ import { Heart, Users, Calendar, BookOpen, ArrowRight, Star, Trophy, Award } fro
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import fondoPrincipal from "@/assets/fondo-principal.jpg";
-import communityImage from "@/assets/community.jpg";
+import actividadGimnasio from "@/assets/actividad-gimnasio.jpg";
+import reconocimientoMedallas from "@/assets/reconocimiento-medallas.jpg";
+import grupoComunidad from "@/assets/grupo-comunidad.jpg";
 import visionDance from "@/assets/vision-dance.jpg";
 import claseTematica1 from "@/assets/clase-tematica-1.jpg";
 import claseTematica2 from "@/assets/clase-tematica-2.jpg";
@@ -154,8 +156,8 @@ const Index = () => {
               </div>
               <div className="relative animate-fade-in">
                 <img 
-                  src={communityImage} 
-                  alt="Comunidad unida en la fundación" 
+                  src={actividadGimnasio} 
+                  alt="Actividad grupal en el gimnasio" 
                   className="rounded-2xl shadow-lg w-full"
                 />
                 <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-warm rounded-full blur-3xl opacity-50" />
@@ -172,6 +174,15 @@ const Index = () => {
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 Nuestros jóvenes super especiales han ganado premios en campeonatos nacionales e internacionales, representando con orgullo a nuestra comunidad.
               </p>
+            </div>
+            
+            {/* Recognition Image */}
+            <div className="mb-12 max-w-4xl mx-auto">
+              <img 
+                src={reconocimientoMedallas} 
+                alt="Reconocimiento y entrega de medallas" 
+                className="rounded-2xl shadow-lg w-full"
+              />
             </div>
             
             <div className="grid md:grid-cols-3 gap-8">
@@ -359,64 +370,6 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Latest Articles Preview */}
-        <section className="section-padding bg-background">
-          <div className="container-custom">
-            <div className="text-center mb-16 animate-slide-up">
-              <h2 className="mb-4">Artículos de Interés</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Recursos y contenido útil para familias y la comunidad.
-              </p>
-            </div>
-            
-            <div className="grid md:grid-cols-3 gap-8">
-              {[
-                {
-                  title: "Beneficios del Baile para Personas con Discapacidad",
-                  excerpt: "Descubre cómo el movimiento y la música pueden mejorar el desarrollo físico y emocional.",
-                  category: "Salud",
-                },
-                {
-                  title: "Consejos para Padres Nuevos",
-                  excerpt: "Guía práctica para familias que se unen por primera vez a nuestra comunidad.",
-                  category: "Familias",
-                },
-                {
-                  title: "Historia de Éxito: El Viaje de Sofía",
-                  excerpt: "Conoce la inspiradora historia de una de nuestras bailarinas más dedicadas.",
-                  category: "Testimonios",
-                },
-              ].map((article, index) => (
-                <Card key={index} className="card-hover">
-                  <CardContent className="pt-6 pb-6">
-                    <div className="flex items-center gap-2 mb-3">
-                      <BookOpen className="w-4 h-4 text-accent" />
-                      <span className="text-xs font-semibold text-accent uppercase tracking-wide">
-                        {article.category}
-                      </span>
-                    </div>
-                    <h3 className="text-lg font-heading font-bold mb-3">{article.title}</h3>
-                    <p className="text-muted-foreground mb-4 leading-relaxed">{article.excerpt}</p>
-                    <Link 
-                      to="/articulos" 
-                      className="text-primary font-semibold text-sm hover:underline inline-flex items-center gap-1"
-                    >
-                      Leer Más <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-
-            <div className="text-center mt-12">
-              <Button asChild variant="default" size="lg">
-                <Link to="/articulos">
-                  Ver Todos los Artículos <ArrowRight className="ml-2" />
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </section>
       </main>
 
       <Footer />
