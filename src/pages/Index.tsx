@@ -7,6 +7,10 @@ import Footer from "@/components/Footer";
 import fondoPrincipal from "@/assets/fondo-principal.jpg";
 import communityImage from "@/assets/community.jpg";
 import visionDance from "@/assets/vision-dance.jpg";
+import claseTematica1 from "@/assets/clase-tematica-1.jpg";
+import claseTematica2 from "@/assets/clase-tematica-2.jpg";
+import claseTematica3 from "@/assets/clase-tematica-3.jpg";
+import claseTematica4 from "@/assets/clase-tematica-4.jpg";
 
 const Index = () => {
   const features = [
@@ -208,8 +212,49 @@ const Index = () => {
           </div>
         </section>
 
+        {/* Clases Temáticas Section */}
+        <section className="section-padding bg-background">
+          <div className="container-custom">
+            <div className="text-center mb-16 animate-slide-up">
+              <h2 className="mb-4">Clases Temáticas</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Celebramos cada fecha especial con actividades temáticas llenas de diversión, donde nuestros jóvenes super especiales se expresan libremente y crean recuerdos inolvidables.
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                { img: claseTematica1, alt: "Clase temática con disfraces" },
+                { img: claseTematica2, alt: "Jóvenes disfrazados en Halloween" },
+                { img: claseTematica3, alt: "Grupo bailando con disfraces" },
+                { img: claseTematica4, alt: "Celebración temática de Halloween" },
+              ].map((item, index) => (
+                <div key={index} className="relative overflow-hidden rounded-2xl shadow-lg card-hover group">
+                  <img 
+                    src={item.img} 
+                    alt={item.alt} 
+                    className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+              ))}
+            </div>
+
+            <div className="text-center mt-12">
+              <p className="text-muted-foreground mb-6">
+                Desde Halloween hasta Navidad, cada celebración es una oportunidad para crear magia y fortalecer nuestra comunidad.
+              </p>
+              <Button asChild variant="default" size="lg">
+                <Link to="/eventos">
+                  Ver Próximas Clases Temáticas <Calendar className="ml-2" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+
         {/* Testimonials Section */}
-        <section id="testimonios" className="section-padding bg-background">
+        <section id="testimonios" className="section-padding bg-gradient-soft">
           <div className="container-custom">
             <div className="text-center mb-16 animate-slide-up">
               <h2 className="mb-4">Testimonios</h2>
