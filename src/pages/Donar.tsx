@@ -4,11 +4,24 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { Heart, Users, Gift, Star } from "lucide-react";
-import { useState } from "react";
+import { Heart, Users, Gift, Star, Upload, CheckCircle2 } from "lucide-react";
+import { useState, useEffect } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 const Donar = () => {
   const [amount, setAmount] = useState("");
+  const [receipt, setReceipt] = useState<File | null>(null);
+  const [receiptPreview, setReceiptPreview] = useState<string | null>(null);
+  const [totalRaised, setTotalRaised] = useState(0);
+  const { toast } = useToast();
+
+  // Cargar el total recaudado desde localStorage al iniciar
+  useEffect(() => {
+    const saved = localStorage.getItem("totalRaised");
+    if (saved) {
+      setTotalRaised(parseFloat(saved));
+    }
+  }, []);
 
   const impactAreas = [
     {
@@ -37,15 +50,58 @@ const Donar = () => {
   const quickAmounts = [20, 50, 100, 200];
 
   const stats = {
-    raised: 0,
+    raised: totalRaised,
     goal: 10000,
+  };
+
+  const handleReceiptUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setReceipt(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setReceiptPreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleDonate = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Donación de:", amount);
-    // Aquí iría la integración con el procesador de pagos
-    alert(`¡Gracias por tu donación de $${amount}!`);
+    
+    if (!amount || parseFloat(amount) <= 0) {
+      toast({
+        title: "Error",
+        description: "Por favor ingresa una cantidad válida",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!receipt) {
+      toast({
+        title: "Comprobante requerido",
+        description: "Por favor sube tu comprobante de pago",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Actualizar el total recaudado
+    const donationAmount = parseFloat(amount);
+    const newTotal = totalRaised + donationAmount;
+    setTotalRaised(newTotal);
+    localStorage.setItem("totalRaised", newTotal.toString());
+
+    toast({
+      title: "¡Gracias por tu donación!",
+      description: `Tu aporte de $${amount} ha sido registrado exitosamente.`,
+    });
+
+    // Limpiar el formulario
+    setAmount("");
+    setReceipt(null);
+    setReceiptPreview(null);
   };
 
   return (
@@ -160,6 +216,60 @@ const Donar = () => {
                           className="text-2xl font-bold pl-10 h-16 text-center"
                           required
                         />
+                      </div>
+                    </div>
+
+                    {/* Upload del comprobante */}
+                    <div className="space-y-3">
+                      <Label htmlFor="receipt" className="text-base font-semibold">
+                        Comprobante de Pago
+                      </Label>
+                      <div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-primary transition-colors">
+                        <input
+                          type="file"
+                          id="receipt"
+                          accept="image/*"
+                          onChange={handleReceiptUpload}
+                          className="hidden"
+                        />
+                        <label htmlFor="receipt" className="cursor-pointer">
+                          {receiptPreview ? (
+                            <div className="space-y-3">
+                              <img 
+                                src={receiptPreview} 
+                                alt="Comprobante" 
+                                className="max-h-48 mx-auto rounded-lg"
+                              />
+                              <div className="flex items-center justify-center gap-2 text-sm text-primary">
+                                <CheckCircle2 className="h-4 w-4" />
+                                <span>Comprobante cargado</span>
+                              </div>
+                              <Button
+                                type="button"
+                                variant="outline"
+                                size="sm"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  setReceipt(null);
+                                  setReceiptPreview(null);
+                                }}
+                              >
+                                Cambiar imagen
+                              </Button>
+                            </div>
+                          ) : (
+                            <div className="space-y-3">
+                              <Upload className="h-12 w-12 mx-auto text-muted-foreground" />
+                              <div className="text-sm text-muted-foreground">
+                                <span className="text-primary font-semibold">Haz clic para subir</span>
+                                {" "}o arrastra tu comprobante aquí
+                              </div>
+                              <p className="text-xs text-muted-foreground">
+                                PNG, JPG hasta 10MB
+                              </p>
+                            </div>
+                          )}
+                        </label>
                       </div>
                     </div>
 
