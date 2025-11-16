@@ -257,15 +257,6 @@ const Donar = () => {
                               <p className="text-sm text-muted-foreground">Cédula/RIF</p>
                               <p className="font-bold text-lg">V-12345678</p>
                             </div>
-                            <div className="pt-4 border-t border-border">
-                              <p className="text-sm text-muted-foreground">Monto a pagar (en Bs)</p>
-                              <p className="font-bold text-2xl text-primary">
-                                Bs. {(parseFloat(amount) * 36.5).toFixed(2)}
-                              </p>
-                              <p className="text-xs text-muted-foreground mt-1">
-                                (Tasa referencial: Bs. 36.5 por USD)
-                              </p>
-                            </div>
                           </div>
                         </CardContent>
                       </Card>
