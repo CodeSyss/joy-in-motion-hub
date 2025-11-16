@@ -13,6 +13,7 @@ const Donar = () => {
   const [receipt, setReceipt] = useState<File | null>(null);
   const [receiptPreview, setReceiptPreview] = useState<string | null>(null);
   const [totalRaised, setTotalRaised] = useState(0);
+  const [showPaymentInfo, setShowPaymentInfo] = useState(false);
   const { toast } = useToast();
 
   // Cargar el total recaudado desde localStorage al iniciar
@@ -66,18 +67,19 @@ const Donar = () => {
     }
   };
 
-  const handleDonate = (e: React.FormEvent) => {
-    e.preventDefault();
-    
+  const handleProceedToDonate = () => {
     if (!amount || parseFloat(amount) <= 0) {
       toast({
         title: "Error",
-        description: "Por favor ingresa una cantidad válida",
+        description: "Por favor selecciona una cantidad válida",
         variant: "destructive",
       });
       return;
     }
+    setShowPaymentInfo(true);
+  };
 
+  const handleConfirmDonation = () => {
     if (!receipt) {
       toast({
         title: "Comprobante requerido",
@@ -102,6 +104,7 @@ const Donar = () => {
     setAmount("");
     setReceipt(null);
     setReceiptPreview(null);
+    setShowPaymentInfo(false);
   };
 
   return (
@@ -170,123 +173,188 @@ const Donar = () => {
                 <CardContent className="p-8">
                   <div className="text-center mb-8">
                     <Heart className="w-16 h-16 text-primary mx-auto mb-4" fill="currentColor" />
-                    <h2 className="text-3xl font-heading font-bold mb-2">Haz tu Donación</h2>
+                    <h2 className="text-3xl font-heading font-bold mb-2">
+                      {!showPaymentInfo ? "Haz tu Donación" : "Completa tu Donación"}
+                    </h2>
                     <p className="text-muted-foreground">
-                      Elige el monto que deseas donar
+                      {!showPaymentInfo 
+                        ? "Elige el monto que deseas donar" 
+                        : `Monto seleccionado: $${amount}`
+                      }
                     </p>
                   </div>
 
-                  <form onSubmit={handleDonate} className="space-y-6">
-                    {/* Montos rápidos */}
-                    <div>
-                      <Label className="text-base font-semibold mb-3 block">
-                        Montos sugeridos
-                      </Label>
-                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                        {quickAmounts.map((quickAmount) => (
-                          <Button
-                            key={quickAmount}
-                            type="button"
-                            variant={amount === quickAmount.toString() ? "default" : "outline"}
-                            className="h-16 text-lg font-bold"
-                            onClick={() => setAmount(quickAmount.toString())}
-                          >
-                            ${quickAmount}
-                          </Button>
-                        ))}
+                  {!showPaymentInfo ? (
+                    <div className="space-y-6">
+                      {/* Montos rápidos */}
+                      <div>
+                        <Label className="text-base font-semibold mb-3 block">
+                          Montos sugeridos
+                        </Label>
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                          {quickAmounts.map((quickAmount) => (
+                            <Button
+                              key={quickAmount}
+                              type="button"
+                              variant={amount === quickAmount.toString() ? "default" : "outline"}
+                              className="h-16 text-lg font-bold"
+                              onClick={() => setAmount(quickAmount.toString())}
+                            >
+                              ${quickAmount}
+                            </Button>
+                          ))}
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Monto personalizado */}
-                    <div>
-                      <Label htmlFor="custom-amount" className="text-base font-semibold mb-3 block">
-                        O ingresa tu monto
-                      </Label>
-                      <div className="relative">
-                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-2xl font-bold text-muted-foreground">
-                          $
-                        </span>
-                        <Input
-                          id="custom-amount"
-                          type="number"
-                          min="1"
-                          placeholder="0"
-                          value={amount}
-                          onChange={(e) => setAmount(e.target.value)}
-                          className="text-2xl font-bold pl-10 h-16 text-center"
-                          required
-                        />
+                      {/* Monto personalizado */}
+                      <div>
+                        <Label htmlFor="custom-amount" className="text-base font-semibold mb-3 block">
+                          O ingresa tu monto
+                        </Label>
+                        <div className="relative">
+                          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-2xl font-bold text-muted-foreground">
+                            $
+                          </span>
+                          <Input
+                            id="custom-amount"
+                            type="number"
+                            min="1"
+                            placeholder="0"
+                            value={amount}
+                            onChange={(e) => setAmount(e.target.value)}
+                            className="text-2xl font-bold pl-10 h-16 text-center"
+                          />
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Upload del comprobante */}
-                    <div className="space-y-3">
-                      <Label htmlFor="receipt" className="text-base font-semibold">
-                        Comprobante de Pago
-                      </Label>
-                      <div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-primary transition-colors">
-                        <input
-                          type="file"
-                          id="receipt"
-                          accept="image/*"
-                          onChange={handleReceiptUpload}
-                          className="hidden"
-                        />
-                        <label htmlFor="receipt" className="cursor-pointer">
-                          {receiptPreview ? (
-                            <div className="space-y-3">
-                              <img 
-                                src={receiptPreview} 
-                                alt="Comprobante" 
-                                className="max-h-48 mx-auto rounded-lg"
-                              />
-                              <div className="flex items-center justify-center gap-2 text-sm text-primary">
-                                <CheckCircle2 className="h-4 w-4" />
-                                <span>Comprobante cargado</span>
-                              </div>
-                              <Button
-                                type="button"
-                                variant="outline"
-                                size="sm"
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  setReceipt(null);
-                                  setReceiptPreview(null);
-                                }}
-                              >
-                                Cambiar imagen
-                              </Button>
+                      {/* Botón continuar */}
+                      <Button
+                        type="button"
+                        size="lg"
+                        onClick={handleProceedToDonate}
+                        className="w-full h-16 text-xl font-bold bg-gradient-warm hover:opacity-90 transition-opacity"
+                        disabled={!amount || Number(amount) <= 0}
+                      >
+                        Continuar <Heart className="ml-2" fill="currentColor" />
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="space-y-6">
+                      {/* Información de pago móvil */}
+                      <Card className="bg-gradient-soft border-2 border-primary/30">
+                        <CardContent className="p-6 space-y-4">
+                          <h3 className="font-bold text-lg text-center mb-4">Datos para Pago Móvil</h3>
+                          <div className="space-y-3 text-center">
+                            <div>
+                              <p className="text-sm text-muted-foreground">Banco</p>
+                              <p className="font-bold text-lg">Banco de Venezuela</p>
                             </div>
-                          ) : (
-                            <div className="space-y-3">
-                              <Upload className="h-12 w-12 mx-auto text-muted-foreground" />
-                              <div className="text-sm text-muted-foreground">
-                                <span className="text-primary font-semibold">Haz clic para subir</span>
-                                {" "}o arrastra tu comprobante aquí
-                              </div>
-                              <p className="text-xs text-muted-foreground">
-                                PNG, JPG hasta 10MB
+                            <div>
+                              <p className="text-sm text-muted-foreground">Teléfono</p>
+                              <p className="font-bold text-lg">0424-1234567</p>
+                            </div>
+                            <div>
+                              <p className="text-sm text-muted-foreground">Cédula/RIF</p>
+                              <p className="font-bold text-lg">V-12345678</p>
+                            </div>
+                            <div className="pt-4 border-t border-border">
+                              <p className="text-sm text-muted-foreground">Monto a pagar (en Bs)</p>
+                              <p className="font-bold text-2xl text-primary">
+                                Bs. {(parseFloat(amount) * 36.5).toFixed(2)}
+                              </p>
+                              <p className="text-xs text-muted-foreground mt-1">
+                                (Tasa referencial: Bs. 36.5 por USD)
                               </p>
                             </div>
-                          )}
-                        </label>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Upload del comprobante */}
+                      <div className="space-y-3">
+                        <Label htmlFor="receipt" className="text-base font-semibold">
+                          Sube tu Comprobante de Pago
+                        </Label>
+                        <div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-primary transition-colors">
+                          <input
+                            type="file"
+                            id="receipt"
+                            accept="image/*"
+                            onChange={handleReceiptUpload}
+                            className="hidden"
+                          />
+                          <label htmlFor="receipt" className="cursor-pointer">
+                            {receiptPreview ? (
+                              <div className="space-y-3">
+                                <img 
+                                  src={receiptPreview} 
+                                  alt="Comprobante" 
+                                  className="max-h-48 mx-auto rounded-lg"
+                                />
+                                <div className="flex items-center justify-center gap-2 text-sm text-primary">
+                                  <CheckCircle2 className="h-4 w-4" />
+                                  <span>Comprobante cargado</span>
+                                </div>
+                                <Button
+                                  type="button"
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    setReceipt(null);
+                                    setReceiptPreview(null);
+                                  }}
+                                >
+                                  Cambiar imagen
+                                </Button>
+                              </div>
+                            ) : (
+                              <div className="space-y-3">
+                                <Upload className="h-12 w-12 mx-auto text-muted-foreground" />
+                                <div className="text-sm text-muted-foreground">
+                                  <span className="text-primary font-semibold">Haz clic para subir</span>
+                                  {" "}o arrastra tu comprobante aquí
+                                </div>
+                                <p className="text-xs text-muted-foreground">
+                                  PNG, JPG hasta 10MB
+                                </p>
+                              </div>
+                            )}
+                          </label>
+                        </div>
+                      </div>
+
+                      {/* Botones de acción */}
+                      <div className="flex gap-3">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="lg"
+                          onClick={() => {
+                            setShowPaymentInfo(false);
+                            setReceipt(null);
+                            setReceiptPreview(null);
+                          }}
+                          className="flex-1"
+                        >
+                          Volver
+                        </Button>
+                        <Button
+                          type="button"
+                          size="lg"
+                          onClick={handleConfirmDonation}
+                          className="flex-1 bg-gradient-warm hover:opacity-90 transition-opacity"
+                          disabled={!receipt}
+                        >
+                          Confirmar Donación
+                        </Button>
                       </div>
                     </div>
+                  )}
 
-                    {/* Botón de donación */}
-                    <Button
-                      type="submit"
-                      size="lg"
-                      className="w-full h-16 text-xl font-bold bg-gradient-warm hover:opacity-90 transition-opacity"
-                      disabled={!amount || Number(amount) <= 0}
-                    >
-                      Donar ${amount || "0"} <Heart className="ml-2" fill="currentColor" />
-                    </Button>
-
-                    <p className="text-sm text-center text-muted-foreground">
-                      Tu donación es segura y nos ayuda a continuar con nuestra misión de inclusión y alegría.
-                    </p>
-                  </form>
+                  <p className="text-sm text-center text-muted-foreground mt-6">
+                    Tu donación es segura y nos ayuda a continuar con nuestra misión de inclusión y alegría.
+                  </p>
                 </CardContent>
               </Card>
             </div>
